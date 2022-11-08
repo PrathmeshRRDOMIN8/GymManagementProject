@@ -16,9 +16,6 @@ import org.bson.Document;
  * @author prtme
  */
 public final class Signup extends javax.swing.JFrame {
-    
-   
-
     /**
      * Creates new form Signup
      */
@@ -26,18 +23,19 @@ public final class Signup extends javax.swing.JFrame {
         initComponents();
         connect();
     }
-    
+    public String[] returntest(String username, String password){
+         String[] s = {jTextField1.getText(),jPasswordField1.getText()};
+         return s;
+    }
     MongoClient mongoClient;
     MongoDatabase databasename;
     MongoCollection<org.bson.Document> collection;
-    
     public void connect(){
         mongoClient = MongoClients.create("mongodb+srv://prathmeshDronaid:prathmeshDronaid1234@cluster0.kuv2win.mongodb.net/?retryWrites=true&w=majority");
         databasename = mongoClient.getDatabase("SDT");
         collection = databasename.getCollection("Admin");
         System.out.println("Connected");
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,7 +111,14 @@ public final class Signup extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 102, 102));
+        jTextField1.setText("Admin");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
+        jPasswordField1.setText("1234");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
@@ -257,6 +262,10 @@ public final class Signup extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

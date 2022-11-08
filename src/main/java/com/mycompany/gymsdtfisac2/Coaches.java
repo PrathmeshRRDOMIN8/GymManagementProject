@@ -20,7 +20,6 @@ import org.bson.Document;
  * @author prtme
  */
 public class Coaches extends javax.swing.JFrame {
-
     /**
      * Creates new form Coaches
      */
@@ -49,7 +48,8 @@ public class Coaches extends javax.swing.JFrame {
             String gender = doc.getString("Gender");
             String phonenumber = doc.getString("PhoneNumber");
             String age = doc.getString("Age");
-            Object[] row = {name, address,phonenumber, age,gender};
+            String type = doc.getString("Type");
+            Object[] row = {name, address,phonenumber, age,gender,type};
             DefaultTableModel model = (DefaultTableModel) listofcoaches.getModel();
             model.addRow(row);
         });
@@ -63,6 +63,33 @@ public class Coaches extends javax.swing.JFrame {
             default -> 5;
         };
        return index; 
+    }
+    
+    public int getService(String text){
+        int index;
+        index = switch(text) { 
+            case "Normal" ->0;
+            case "Special"->1;
+            default->2;
+        };
+        return index;
+    }
+    
+    public String[] returntest(
+        String name,
+        String phonenumber,
+        String age, 
+        String address,
+        String gender,
+        String type){
+        String[] s = {
+        coachname.getText(),
+        coachphonenumber.getText(),
+        coachage.getText(),
+        coachaddress.getText(),
+        coachgender.getSelectedItem().toString(),
+        coachtype.getSelectedItem().toString()};
+        return s;
     }
 
     /**
@@ -99,6 +126,8 @@ public class Coaches extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listofcoaches = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        coachtype = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -153,7 +182,7 @@ public class Coaches extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(97, 97, 97)
                 .addComponent(jLabel5)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -198,17 +227,25 @@ public class Coaches extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 102, 102));
         jLabel7.setText("Coaches List");
 
+        coachphonenumber.setText("9818295840");
+
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 102, 102));
         jLabel8.setText("Coach Name");
+
+        coachname.setText("Prakash");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 102, 102));
         jLabel9.setText("Gender");
 
+        coachaddress.setText("Delhi");
+
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 102, 102));
         jLabel10.setText("Address");
+
+        coachage.setText("50");
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 102, 102));
@@ -253,11 +290,11 @@ public class Coaches extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Address", "Phonenumber", "Age", "Gender"
+                "Name", "Address", "Phonenumber", "Age", "Gender", "Type"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -271,6 +308,13 @@ public class Coaches extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(listofcoaches);
+
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel12.setText("Type");
+
+        coachtype.setForeground(new java.awt.Color(255, 102, 102));
+        coachtype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trainer", "Dietician" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -293,19 +337,23 @@ public class Coaches extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(coachaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(coachgender, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(coachgender, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(196, 196, 196))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(coachage, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(74, 74, 74))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(246, 246, 246))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(coachtype, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -344,13 +392,16 @@ public class Coaches extends javax.swing.JFrame {
                             .addComponent(coachage, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel9))
+                            .addComponent(jLabel12)))
                     .addComponent(coachphonenumber, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(coachgender, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(coachaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(coachaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coachtype, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,13 +459,15 @@ public class Coaches extends javax.swing.JFrame {
         doc.append("Age", coachage.getText());
         doc.append("Address", coachaddress.getText());
         doc.append("Gender", selectedItem1.toString());
+        doc.append("Type",coachtype.getSelectedItem().toString());
         collection.insertOne(doc);
         String name = doc.getString("Coachname");
         String address = doc.getString("Address");
         String gender = doc.getString("Gender");
         String phonenumber = doc.getString("PhoneNumber");
         String age = doc.getString("Age");
-        Object[] row = {name, address,phonenumber, age,gender};
+        String type = doc.getString("Type");
+        Object[] row = {name, address,phonenumber, age,gender,type};
         DefaultTableModel model = (DefaultTableModel) listofcoaches.getModel();
         model.addRow(row);
         JOptionPane.showMessageDialog(this, "Member Added");
@@ -447,6 +500,7 @@ public class Coaches extends javax.swing.JFrame {
         coachphonenumber.setText(model.getValueAt(selectedRowIndex, 2).toString());
         coachage.setText(model.getValueAt(selectedRowIndex, 3).toString());
         coachgender.setSelectedIndex(genderindex(model.getValueAt(selectedRowIndex, 4).toString()));
+        coachtype.setSelectedIndex(getService(model.getValueAt(selectedRowIndex, 5).toString()));
     }//GEN-LAST:event_listofcoachesMouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
@@ -456,8 +510,11 @@ public class Coaches extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        collection.updateOne(Filters.eq("Coachname", coachname.getText()), Updates.set("Coachname", coachname.getText()));
         collection.updateOne(Filters.eq("Coachname", coachname.getText()), Updates.set("PhoneNumber", coachphonenumber.getText()));
         collection.updateOne(Filters.eq("Coachname", coachname.getText()), Updates.set("Address", coachaddress.getText()));
+        collection.updateOne(Filters.eq("Coachname", coachname.getText()), Updates.set("Type", coachtype.getSelectedItem().toString()));
+
         JOptionPane.showMessageDialog(this, "Database Updated");
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -515,11 +572,13 @@ public class Coaches extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> coachgender;
     private javax.swing.JTextField coachname;
     private javax.swing.JTextField coachphonenumber;
+    private javax.swing.JComboBox<String> coachtype;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;

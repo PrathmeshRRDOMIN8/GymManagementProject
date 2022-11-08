@@ -20,16 +20,11 @@ import org.bson.Document;
  * @author prtme
  */
 public final class Payements extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Payements
-     */
     public Payements() {
         initComponents();
         connect();
         loadData();
-    }
-    
+    }   
     MongoClient mongoClient;
     MongoDatabase databasename;
     MongoCollection<org.bson.Document> collection;
@@ -39,8 +34,7 @@ public final class Payements extends javax.swing.JFrame {
         databasename = mongoClient.getDatabase("SDT");
         collection = databasename.getCollection("Payement");
         System.out.println("Connected");
-    }
-    
+    }    
     public void loadData() {
         FindIterable<Document> iterDoc = collection.find();
         iterDoc.forEach(doc -> {
@@ -67,6 +61,19 @@ public final class Payements extends javax.swing.JFrame {
        return index; 
     }
 
+    public String[] returntest(
+            String payment,
+            String name,
+            String amount)
+    {
+        String[] s = {
+            jTextField1.getText(),
+            paymember.getSelectedItem().toString(),
+//            paydate.getDate().toString().split("T")[0].split("00")[0],
+            payamount.getText(),
+           };
+        return s;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,16 +189,20 @@ public final class Payements extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jTextField1.setText("1000");
+
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 102, 102));
         jLabel8.setText("Member");
+
+        payamount.setText("1000");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 102, 102));
         jLabel9.setText("Amount");
 
         paymember.setForeground(new java.awt.Color(255, 102, 102));
-        paymember.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ansh", "Smeet", "Divyanshu", "Shivam", "Rishit" }));
+        paymember.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prathmesh", "Ansh", "Smeet", "Divyanshu", "Shivam", "Rishit" }));
 
         jButton2.setBackground(new java.awt.Color(255, 153, 153));
         jButton2.setForeground(new java.awt.Color(255, 51, 102));

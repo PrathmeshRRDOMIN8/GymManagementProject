@@ -20,7 +20,6 @@ import org.bson.conversions.Bson;
  * @author prtme
  */
 public final class Login extends javax.swing.JFrame {
-
     /**
      * Creates new form Login
      */
@@ -28,7 +27,6 @@ public final class Login extends javax.swing.JFrame {
         initComponents();
         connect();
     }
-    
     MongoClient mongoClient;
     MongoDatabase databasename;
     MongoCollection<org.bson.Document> collection;
@@ -38,6 +36,10 @@ public final class Login extends javax.swing.JFrame {
         databasename = mongoClient.getDatabase("SDT");
         collection = databasename.getCollection("Admin");
         System.out.println("Connected");
+    }
+    public String[] returntest(String username, String password){
+        String[] s = {jTextField1.getText(),jPasswordField1.getText()};
+         return s;
     }
 
     /**
@@ -114,7 +116,9 @@ public final class Login extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 102, 102));
+        jTextField1.setText("Admin");
 
+        jPasswordField1.setText("1234");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
@@ -235,12 +239,7 @@ public final class Login extends javax.swing.JFrame {
         BasicDBObject searchQuery = new BasicDBObject("Username",jTextField1.getText());
         searchQuery.append("Password", jPasswordField1.getText());
         System.out.println("Retrieving specific Mongo Document");
-//        BasicDBObject projectionDoc = new BasicDBObject("Password", jPasswordField1.getText());
-//                              projectionDoc.append("PassengerNumberRecord",1);
         MongoCursor<Document> cursor = collection.find(searchQuery).iterator();
-//        while (cursor.hasNext()) {
-//            System.out.println(cursor.next());
-//        }
         if(cursor.hasNext()){
             JOptionPane.showMessageDialog( this,"Login Successfull");
             new Members().setVisible(true);
@@ -249,7 +248,6 @@ public final class Login extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog( this,"Login Failed");
         }
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
